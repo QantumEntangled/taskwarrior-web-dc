@@ -1,0 +1,26 @@
+version: '3.6'
+services:
+    app:
+        image: hav0k/taskwarrior-web
+        restart: unless-stopped
+        networks:
+            - net
+        ports:
+            - "5678:5678"
+        volumes:
+            - "./task-web:/root/.task"
+        environment:
+            - TASKD_SERVER
+            - TASKD_CREDENTIALS
+        secrets:
+            - TASKD_SERVER
+            - TASKD_CREDENTIALS
+
+networks:
+    net:
+
+secrets:
+    TASKD_SERVER:
+        file: ./secret-server.txt
+    TASKD_CREDENTIALS:
+        file: ./secret-creds.txt
